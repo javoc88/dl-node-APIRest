@@ -55,30 +55,44 @@ const getFilteredJoyas = async (precioMin, precioMax, categoria, metal) => {
   const values = [];
 
   if (precioMin) {
-    filters.push('precio >= $1');
+    filters.push("precio >= $1");
     values.push(parseInt(precioMin));
   }
 
   if (precioMax) {
-    filters.push('precio <= $2');
+    filters.push("precio <= $2");
     values.push(parseInt(precioMax));
   }
 
   if (categoria) {
-    filters.push('categoria = $3');
+    filters.push("categoria = $3");
     values.push(categoria);
   }
 
   if (metal) {
-    filters.push('metal = $4');
+    filters.push("metal = $4");
     values.push(metal);
   }
 
-  const whereClause = filters.length > 0 ? `WHERE ${filters.join(' AND ')}` : '';
+  const whereClause =
+    filters.length > 0 ? `WHERE ${filters.join(" AND ")}` : "";
 
   const consulta = `SELECT * FROM inventario ${whereClause}`;
   const { rows } = await pool.query(consulta, values);
   return rows;
 };
 
-module.exports = { getJoyas, buildQueryClauses, prepareHATEOAS, getFilteredJoyas };
+// Función para manejar solicitudes GET por ID
+const getJoyaById = async (id) => {
+  const consulta = `SELECT * FROM inventario WHERE id = $1`;
+  const { rows } = await pool.query(consulta, [id]);
+  return rows[0]; // Devolvemos el primer resultado (o null si no se encuentra)
+};
+
+module.exports = {
+  getJoyas,
+  buildQueryClauses,
+  prepareHATEOAS,
+  getFilteredJoyas,
+  getJoyaById,
+};

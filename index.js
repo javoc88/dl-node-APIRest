@@ -6,6 +6,7 @@ const {
   buildQueryClauses,
   prepareHATEOAS,
   getFilteredJoyas,
+  getJoyaById,
 } = require("./consultas");
 
 const PORT = process.env.PORT;
