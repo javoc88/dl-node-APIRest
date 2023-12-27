@@ -49,4 +49,35 @@ const prepareHATEOAS = (joyas) => {
   return HATEOS;
 };
 
-module.exports = { getJoyas, buildQueryClauses, prepareHATEOAS };
+const getFilteredJoyas = async (precioMin, precioMax, categoria, metal) => {
+  const filters = [];
+  const values = [];
+
+  if (precioMin) {
+    filters.push('precio >= $1');
+    values.push(parseInt(precioMin));
+  }
+
+  if (precioMax) {
+    filters.push('precio <= $2');
+    values.push(parseInt(precioMax));
+  }
+
+  if (categoria) {
+    filters.push('categoria = $3');
+    values.push(categoria);
+  }
+
+  if (metal) {
+    filters.push('metal = $4');
+    values.push(metal);
+  }
+
+  const whereClause = filters.length > 0 ? `WHERE ${filters.join(' AND ')}` : '';
+
+  const consulta = `SELECT * FROM inventario ${whereClause}`;
+  const { rows } = await pool.query(consulta, values);
+  return rows;
+};
+
+module.exports = { getJoyas, buildQueryClauses, prepareHATEOAS, getFilteredJoyas };
