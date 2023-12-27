@@ -11,6 +11,7 @@ const pool = new Pool({
   allowExitOnIdle: true,
 });
 
+// Función de consulta SQL
 const getJoyas = async (extras, values) => {
   const consulta = `SELECT * FROM inventario ${extras}`;
   const { rows } = await pool.query(consulta, values);
