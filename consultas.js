@@ -18,15 +18,15 @@ const getJoyas = async (extras, values) => {
 };
 
 // Cláusulas 
-const buildQueryClause = (queryStrings) => {
-  let clause = "";
+const buildQueryClauses = (queryStrings) => {
+  let clauses = "";
   const { limits, page, order_by } = queryStrings;
 
-  clause = order_by ? `ORDER BY ${order_by.split("_")[0]} ${order_by.split("_")[1]}` : "";
-  clause += limits ? ` LIMIT ${limits}` : "";
-  clause += page && limits ? ` OFFSET ${page * limits - limits}` : "";
+  clauses = order_by ? `ORDER BY ${order_by.split("_")[0]} ${order_by.split("_")[1]}` : "";
+  clauses += limits ? ` LIMIT ${limits}` : "";
+  clauses += page && limits ? ` OFFSET ${page * limits - limits}` : "";
 
-  return clause;
+  return clauses;
 };
 
 
@@ -47,4 +47,4 @@ const buildQueryClause = (queryStrings) => {
 //   return clausula;
 // };
 
-module.exports = {getJoyas, buildQueryClause}
+module.exports = {getJoyas, buildQueryClauses}
