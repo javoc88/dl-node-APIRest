@@ -1,6 +1,6 @@
 // Middleware para registrar solicitudes
 const queryReport = async (req, res, next) => {
-  console.log(`Solicitud a ${req.method} ${req.originalUrl}`);
+  console.log(`Solicitud ${req.method} ${req.originalUrl} con fecha ${new Date()}`);
   next();
 };
 
