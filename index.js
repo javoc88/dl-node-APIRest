@@ -1,7 +1,12 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const { getJoyas, buildQueryClauses, prepareHATEOAS, getFilteredJoyas } = require("./consultas");
+const {
+  getJoyas,
+  buildQueryClauses,
+  prepareHATEOAS,
+  getFilteredJoyas,
+} = require("./consultas");
 
 const PORT = process.env.PORT;
 
@@ -18,6 +23,21 @@ app.get("/joyas", async (req, res) => {
   }
 });
 
+// Solicitud GET /joyas/joya/:id
+app.get("/joyas/joya/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const joya = await getJoyaById(id);
+
+    if (!joya) {
+      return res.status(404).json({ message: "Joya no encontrada" });
+    }
+
+    res.json({ joya });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 // Solicitud GET /joyas/filtros
 app.get("/joyas/filtros", async (req, res) => {
@@ -36,7 +56,6 @@ app.get("/joyas/filtros", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
 
 app.listen(PORT, () => {
   console.log(`Servidor iniciado en el puerto ${PORT}`);
