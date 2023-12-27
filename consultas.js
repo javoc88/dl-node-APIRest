@@ -49,6 +49,7 @@ const prepareHATEOAS = (joyas) => {
   return HATEOS;
 };
 
+// Función para filtrar las joyas
 const getFilteredJoyas = async (precioMin, precioMax, categoria, metal) => {
   const filters = [];
   const values = [];
