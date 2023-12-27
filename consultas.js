@@ -17,18 +17,37 @@ const getJoyas = async (extras, values) => {
   return rows;
 };
 
-// Cláusulas 
+// Inicialización de cláusula de consultas
 const buildQueryClauses = (queryStrings) => {
   let clauses = "";
   const { limits, page, order_by } = queryStrings;
 
-  clauses = order_by ? `ORDER BY ${order_by.split("_")[0]} ${order_by.split("_")[1]}` : "";
+  clauses = order_by
+    ? `ORDER BY ${order_by.split("_")[0]} ${order_by.split("_")[1]}`
+    : "";
   clauses += limits ? ` LIMIT ${limits}` : "";
   clauses += page && limits ? ` OFFSET ${page * limits - limits}` : "";
 
   return clauses;
 };
 
+// Función para preparar una estructura HATEOAS
+const prepareHATEOAS = (joyas) => {
+  const result = joyas.map((j) => {
+    return {
+      name: j.nombre,
+      href: `/joyas/joya/${j.id}`,
+    };
+  });
+  const totalJoyas = joyas.length;
+  const totalStock = joyas.reduce((a, b) => a + b.stock, 0);
+  const HATEOS = {
+    totalJoyas,
+    totalStock,
+    result,
+  };
+  return HATEOS;
+};
 
 // const nombreFuncion = (queryStrings) => {
 //   let clausula = "";
@@ -47,4 +66,4 @@ const buildQueryClauses = (queryStrings) => {
 //   return clausula;
 // };
 
-module.exports = {getJoyas, buildQueryClauses}
+module.exports = { getJoyas, buildQueryClauses };
