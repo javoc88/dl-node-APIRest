@@ -46,3 +46,5 @@ const buildQueryClause = (queryStrings) => {
 //   }
 //   return clausula;
 // };
+
+module.exports = {getJoyas, buildQueryClause}
