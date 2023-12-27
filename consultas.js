@@ -42,12 +42,12 @@ const prepareHATEOAS = (joyas) => {
   });
   const totalJoyas = joyas.length;
   const totalStock = joyas.reduce((a, b) => a + b.stock, 0);
-  const HATEOS = {
+  const HATEOAS = {
     totalJoyas,
     totalStock,
     result,
   };
-  return HATEOS;
+  return HATEOAS;
 };
 
 // Función para filtrar las joyas
