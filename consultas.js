@@ -49,21 +49,4 @@ const prepareHATEOAS = (joyas) => {
   return HATEOS;
 };
 
-// const nombreFuncion = (queryStrings) => {
-//   let clausula = "";
-//   const { limits, page, order_by } = queryStrings;
-//   if (order_by) {
-//     const [campo, ordenamiento] = order_by.split("_");
-//     clausula = `ORDER BY ${campo} ${ordenamiento}`;
-//   }
-//   if (limits) {
-//     clausula += " LIMIT " + limits;
-//   }
-//   if (page && limits) {
-//     const offset = page * limits - limits;
-//     clausula += " OFFSET " + offset;
-//   }
-//   return clausula;
-// };
-
 module.exports = { getJoyas, buildQueryClauses, prepareHATEOAS };
