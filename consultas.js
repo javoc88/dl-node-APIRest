@@ -66,4 +66,4 @@ const prepareHATEOAS = (joyas) => {
 //   return clausula;
 // };
 
-module.exports = { getJoyas, buildQueryClauses };
+module.exports = { getJoyas, buildQueryClauses, prepareHATEOAS };

@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require('express');
 const app = express();
-const {getJoyas, buildQueryClauses} = require("./consultas")
+const {getJoyas, buildQueryClauses, prepareHATEOAS} = require("./consultas")
 
 const PORT = process.env.PORT;
 
