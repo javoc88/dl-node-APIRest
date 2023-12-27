@@ -10,3 +10,9 @@ const pool = new Pool({
   database: process.env.PG_DATABASE,
   allowExitOnIdle: true,
 });
+
+const getJoyas = async (extras, values) => {
+  const consulta = `SELECT * FROM inventario ${extras}`;
+  const { rows } = await pool.query(consulta, values)
+  return rows
+};
