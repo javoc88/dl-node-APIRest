@@ -8,11 +8,12 @@ const {
   getFilteredJoyas,
   getJoyaById,
 } = require("./consultas");
+const { queryReport } = require("./middleware/index")
 
 const PORT = process.env.PORT;
 
 // Solicitud GET /joyas
-app.get("/joyas", async (req, res) => {
+app.get("/joyas", queryReport, async (req, res) => {
   try {
     const queryStrings = req.query;
     const clauses = buildQueryClauses(queryStrings);
@@ -25,7 +26,7 @@ app.get("/joyas", async (req, res) => {
 });
 
 // Solicitud GET /joyas/joya/:id
-app.get("/joyas/joya/:id", async (req, res) => {
+app.get("/joyas/joya/:id", queryReport, async (req, res) => {
   try {
     const { id } = req.params;
     const joya = await getJoyaById(id);
@@ -41,7 +42,7 @@ app.get("/joyas/joya/:id", async (req, res) => {
 });
 
 // Solicitud GET /joyas/filtros
-app.get("/joyas/filtros", async (req, res) => {
+app.get("/joyas/filtros", queryReport, async (req, res) => {
   try {
     const { precio_min, precio_max, categoria, metal } = req.query;
 
